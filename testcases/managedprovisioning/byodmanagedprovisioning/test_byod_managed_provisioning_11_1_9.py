@@ -8,7 +8,7 @@
 # @Desc: test_profile-aware_device_administrator_settings自动化测试脚本
 # @update: Record important updates
 # ---
-
+import configparser
 import os
 import unittest
 import time
@@ -19,7 +19,10 @@ from utils.device_info_util.device_info import DeviceInfo
 
 class ProfileAwareAppSetting(unittest.TestCase):
     def setUp(self):
-        support_device = 'HQ60CT3016'
+        config = configparser.ConfigParser()
+        config.read(os.getcwd() + '/config', encoding='utf-8')
+        support_device = config.get('support_device', 'device')
+        print(support_device)
         warnings.simplefilter('ignore', ResourceWarning)  # 屏蔽警报信息
         print("测试开始")
         print("获取手机设备信息！")

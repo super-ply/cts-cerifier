@@ -18,7 +18,7 @@
 # @Desc: test_byod_managed_provisioning自动化测试脚本
 # @update: Record important updates
 # ---
-
+import configparser
 import os
 import unittest
 import time
@@ -31,7 +31,10 @@ from utils.pic_util.pic_util import PicUtil
 
 class CrossProfileIntentFiltersAreSet(unittest.TestCase):
     def setUp(self):
-        support_device = 'HQ60CT3016'
+        config = configparser.ConfigParser()
+        config.read(os.getcwd() + '/config', encoding='utf-8')
+        support_device = config.get('support_device', 'device')
+        print(support_device)
         warnings.simplefilter('ignore', ResourceWarning)  # 屏蔽警报信息
         print("测试开始")
         print("获取手机设备信息！")
@@ -50,7 +53,7 @@ class CrossProfileIntentFiltersAreSet(unittest.TestCase):
                 self.d(text="Cross profile intent filters are set").click()
                 time.sleep(20)
                 im = self.d(text="Cross profile intent filters are set").screenshot()
-                pic_path = os.path.abspath(os.path.join(os.getcwd(), "../..")) + "\\report\\pic\\"  # 测试结果图片文件夹保存路径
+                pic_path = os.path.abspath(os.path.join(os.getcwd(), "../..")) + "/report/pic/"  # 测试结果图片文件夹保存路径
                 im.save(pic_path + "test_11_1_16.jpg")
                 image = Image.open(pic_path + "test_11_1_16.jpg")
                 image = image.convert('RGB')

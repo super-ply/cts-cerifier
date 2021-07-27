@@ -13,12 +13,19 @@ import os
 import time
 import unittest
 import HTMLTestRunner
+import os
+import unittest
+import time
+import warnings
+import configparser
+import PIL.Image as Image
+import uiautomator2 as u2
+from utils.device_info_util.device_info import *
+from testcases.managedprovisioning.byodmanagedprovisioning import *
 
 
-case_path = os.getcwd() + "/managedprovisioning/byodmanagedprovisioning/"  # 测试结果图片文件夹保存路径
+case_path = os.getcwd() + "/testcases/managedprovisioning/byodmanagedprovisioning/"  # 测试结果图片文件夹保存路径
 print(case_path)
-
-
 
 
 

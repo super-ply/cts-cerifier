@@ -8,7 +8,7 @@
 # @Desc: Function of this file
 # @update: Record important updates
 # ---
-
+import configparser
 import os
 import unittest
 import time
@@ -19,7 +19,10 @@ from utils.device_info_util.device_info import DeviceInfo
 
 class PermissionsLockdown(unittest.TestCase):
     def setUp(self):
-        support_device = 'HQ60CT3016'
+        config = configparser.ConfigParser()
+        config.read(os.getcwd() + '/config', encoding='utf-8')
+        support_device = config.get('support_device', 'device')
+        print(support_device)
         warnings.simplefilter('ignore', ResourceWarning)  # 屏蔽警报信息
         print("测试开始")
         print("获取手机设备信息！")
@@ -34,7 +37,7 @@ class PermissionsLockdown(unittest.TestCase):
 
     def test_byod_managed_provisioning_11_1_19(self):
         apk_path = os.path.abspath(
-            os.path.join(os.getcwd(), "..")) + "\\resource\\apk\\CtsPermissionApp.apk"  # 测试结果图片文件夹保存路径
+            os.path.join(os.getcwd(), "..")) + "/resource/apk/CtsPermissionApp.apk"  # 测试结果图片文件夹保存路径
         print(apk_path)
         os.system("adb -s " + self.test_device + " install " + apk_path)
         for i in range(10):

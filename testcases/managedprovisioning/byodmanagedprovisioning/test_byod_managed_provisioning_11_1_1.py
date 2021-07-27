@@ -13,6 +13,7 @@ import os
 import unittest
 import time
 import warnings
+import configparser
 import PIL.Image as Image
 import uiautomator2 as u2
 from utils.device_info_util.device_info import DeviceInfo
@@ -21,12 +22,14 @@ from utils.pic_util.pic_util import PicUtil
 
 class ProfileOwnerInstalled(unittest.TestCase):
     def setUp(self):
-        support_device = 'HQ60CT3016'
+        config = configparser.ConfigParser()
+        config.read(os.getcwd() + '/config', encoding='utf-8')
+        support_device = config.get('support_device', 'device')
+        print(support_device)
         warnings.simplefilter('ignore', ResourceWarning)  # 屏蔽警报信息
         print("测试开始")
         print("获取手机设备信息！")
         self.device = DeviceInfo()
-        print(support_device)
         self.devices = self.device.check_device()[0]
         self.devices.remove(support_device)
         self.test_device = self.devices[0]
